@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import { LoginSchemas } from "../../schema/LoginSchemas";
 import { login } from "../../services/Auth-services";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const navigate = useNavigate()
@@ -17,12 +18,15 @@ const Login = () => {
                 email,
                 password,
             }
-            console.log(logValue);
             login(logValue)
             .then((res) => {
                 if(res){
-                    console.log("Login Successful",res);
-                    navigate('/')
+                    void Swal.fire({
+                        icon: 'success',
+                        title: 'Login Successful',
+                    }).then(() => {
+                        navigate('/')
+                    });
                 }else{
                     console.log("Please enter valid email or password");
                     

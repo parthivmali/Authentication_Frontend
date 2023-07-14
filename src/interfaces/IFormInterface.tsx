@@ -15,5 +15,6 @@ export interface ILoginData {
 }
 
 export interface ILoginResponseData {
+    firstname(arg0: string, firstname: any): unknown;
     tokens: Array<{ token: string }>;
   }

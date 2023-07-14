@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosError, AxiosResponse } from "axios"
 import Cookies from 'js-cookie'
 import { ILoginData, ILoginResponseData } from "../interfaces/IFormInterface";
+import Toaster from "../hooks/Toaster";
 
 const API_URL = "http://localhost:3000/"
 
@@ -24,19 +25,12 @@ export const login = async (data: ILoginData) => {
         }
         return res.data;
     })
-    .catch((err) => {
-        console.log(err);
+    .catch((err:AxiosError<string>) => {
+        if(err.response && err.response.data){
+            Toaster.error(err.response.data)
+        }else{
+            console.log("Please check your credentials");
+            
+        }
     })
-    // try {
-    //     const loginResponse:AxiosResponse<ILoginResponseData> = await axios.post(`${API_URL}login`,data);
-        
-    //     console.log("=>",loginResponse.data)
-    //     if () {
-    //         const token = loginResponse.data?.tokens[0].token;
-    //         Cookies.set("jwt", token, { expires: 3 });
-    //     }
-    // } catch (error) {
-    //     console.log(error);
-        
-    // }
 };

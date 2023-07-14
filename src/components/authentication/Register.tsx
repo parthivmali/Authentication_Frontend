@@ -1,10 +1,12 @@
 import { useFormik } from 'formik'
 import { RegisterSchemas } from "../../schema/RegisterSchemas";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { register } from '../../services/Auth-services';
 import { IRegisterUser } from '../../interfaces/IFormInterface';
 import { Link, useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
+import Toaster from '../../hooks/Toaster';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const Register = () => {
     const navigate = useNavigate()
@@ -37,13 +39,24 @@ const Register = () => {
             register(regValue)
             .then((res)=>{
                 console.log(res);
-                navigate('/login')
-            }).catch((err)=>{
-                console.log(err);
+                
+                void Swal.fire({
+                    icon: 'success',
+                    title: 'Registration Successful',
+                }).then(() => {
+                    navigate('/login')
+                });    
+            }).catch((err:AxiosError<string>)=>{
+                if(err.response && err.response.data){
+                    Toaster.error(err.response.data)
+                }else{
+                    console.log("Please check your credentials");
+                    
+                }
+                
             });
         }
     })
-
     return (
         <>
           <div className="flex min-h-screen flex-1">
