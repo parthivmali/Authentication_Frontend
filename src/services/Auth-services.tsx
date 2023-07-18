@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios"
 import Cookies from 'js-cookie'
-import { ILoginData, ILoginResponseData } from "../interfaces/IFormInterface";
+import { ILoginData, ILoginResponseData, IResetValue, IforgotValue } from "../interfaces/IFormInterface";
 import Toaster from "../hooks/Toaster";
 
 const API_URL = "http://localhost:3000/"
@@ -8,8 +8,6 @@ const API_URL = "http://localhost:3000/"
 
 // Register
 export const register = async (data:any) => {
-    console.log('Request URL:', `${API_URL}create`);
-    console.log('Request Data:', data);
     return await axios.post(`${API_URL}create`,data)
 }
 
@@ -34,3 +32,17 @@ export const login = async (data: ILoginData) => {
         }
     })
 };
+
+// Forgot Password
+
+export const forgotPassword = async (forgotValue:IforgotValue) => {
+    return await axios
+    .post(`${API_URL}email-send`,forgotValue)
+}
+
+// Reset password
+
+export const resetPassword = async (resetValue:IResetValue) => {
+    return await axios
+    .post(`${API_URL}reset-password`,resetValue)
+}

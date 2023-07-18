@@ -15,6 +15,25 @@ export interface ILoginData {
 }
 
 export interface ILoginResponseData {
-    firstname(arg0: string, firstname: any): unknown;
+    // firstname(arg0: string, firstname: any): unknown;
     tokens: Array<{ token: string }>;
-  }
+}
+
+export interface IUserdata {
+    firstname: string;
+    lastname: string;
+}
+
+export interface IforgotValue {
+    email: string;
+}
+
+export interface Imessage {
+    message: string;
+}
+
+export interface IResetValue {
+    code:string;
+    password:string;
+    confirmpassword:string;
+}

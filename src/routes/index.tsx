@@ -4,6 +4,8 @@ import Home from '../pages/Home'
 import Login from '../components/authentication/Login'
 import Private from './private'
 import Public from './public'
+import ForgotPassword from '../components/authentication/ForgotPassword'
+import ResetPassword from '../components/authentication/ResetPassword'
 
 const index = () => {
   return (
@@ -16,6 +18,8 @@ const index = () => {
             <Route path='/' element={<Public/>}>
               <Route path='/login' element={<Login/>}/>
               <Route path='/register' element={<Register/>}/>
+              <Route path='/email-send' element={<ForgotPassword/>}/>
+              <Route path='/reset-password' element={<ResetPassword/>}/>
             </Route>
         </Routes>
     </div>

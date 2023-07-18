@@ -34,12 +34,11 @@ const Register = () => {
                 password,
                 confirmpassword
             }
-            console.log("regValue: ",regValue);
-
             register(regValue)
-            .then((res)=>{
-                console.log(res);
-                
+            .then((res:AxiosResponse<string>)=>{
+                if(res.data){
+                    localStorage.setItem("userData", JSON.stringify(res.data))
+                }
                 void Swal.fire({
                     icon: 'success',
                     title: 'Registration Successful',

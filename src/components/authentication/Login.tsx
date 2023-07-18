@@ -3,8 +3,15 @@ import { LoginSchemas } from "../../schema/LoginSchemas";
 import { login } from "../../services/Auth-services";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { IUserdata } from "../../interfaces/IFormInterface";
 
 const Login = () => {
+    const rawData: string | null = localStorage.getItem("userData");
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const getData:IUserdata = rawData !== null ? JSON.parse(rawData) : null
+    
+
+    
     const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
@@ -20,7 +27,9 @@ const Login = () => {
             }
             login(logValue)
             .then((res) => {
+                
                 if(res){
+                    localStorage.clear()
                     void Swal.fire({
                         icon: 'success',
                         title: 'Login Successful',
@@ -55,7 +64,7 @@ const Login = () => {
                     alt="Your Company"
                     />
                     <h2 className="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-600">
-                    Login Your Account
+                    {localStorage.length === 0 ? 'Welcome To User Authentication': `Welcome ${getData.firstname} ${getData.lastname}`}
                     </h2>
                 </div>
                 <div className="mt-10">
@@ -76,7 +85,15 @@ const Login = () => {
                             </div>
                             {/* Password */} 
                             <div className="mb-5">
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Password</label>
+                                <div className="flex items-center justify-between">
+                                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Password</label>
+                                    <div className="text-sm">
+                                        <Link to={"/email-send"} className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                            Forgot password?
+                                        </Link>
+                                    </div>
+
+                                </div>
                                 <input 
                                 type="password" 
                                 id="password" 

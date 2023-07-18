@@ -2,19 +2,19 @@ import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Cookies from 'js-cookie'
-import { Link } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Profile', href: '#' },
-  { name: 'Reset Password', href: '#' },
-  { name: 'Setting', href: '#' },
-  { name: 'About', href: '#' },
+  { name: 'Home', to: '/' },
+  { name: 'Profile', to: '/profile' },
+  { name: 'Setting', to: '/setting' },
+  { name: 'About', to: '/about' },
 ]
 
 const Home = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [checkedLogin, setCheckedLogin] = useState(false)
-  
+  const location = useLocation();
     const handleLogOutClick = () => {
       Cookies.remove('jwt')
       setCheckedLogin(false)
@@ -47,9 +47,11 @@ const Home = () => {
           </div>
           <div className="hidden md:flex md:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-md font-semibold leading-6 text-gray-800">
+              <NavLink key={item.name} to={item.to} className={`text-md font-semibold leading-6 ${
+                location.pathname === item.to ? 'text-[#c57743]' : 'text-gray-800'
+              }`}>
                 {item.name}
-              </a>
+              </NavLink>
             ))}
           </div>
           {checkedLogin ?
@@ -92,13 +94,13 @@ const Home = () => {
               <div className="-my-6 divide-y divide-gray-500/25">
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
-                    <a
+                    <NavLink
                       key={item.name}
-                      href={item.href}
+                      to={item.to}
                       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                     >
                       {item.name}
-                    </a>
+                    </NavLink>
                   ))}
                 </div>
                 {checkedLogin ?
