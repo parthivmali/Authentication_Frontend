@@ -15,7 +15,6 @@ export interface ILoginData {
 }
 
 export interface ILoginResponseData {
-    // firstname(arg0: string, firstname: any): unknown;
     tokens: Array<{ token: string }>;
 }
 
@@ -36,4 +35,14 @@ export interface IResetValue {
     code:string;
     password:string;
     confirmpassword:string;
+}
+export interface IGetData {
+    _id?:string;
+    firstname ?: string;
+    lastname ?: string;
+    phone ?: string;
+    email?: string;
+    gender?:string;
+    age?:string;
+    tokens?: Array<{ token: string }>
 }

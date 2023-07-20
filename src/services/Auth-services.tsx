@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from "axios"
 import Cookies from 'js-cookie'
-import { ILoginData, ILoginResponseData, IResetValue, IforgotValue } from "../interfaces/IFormInterface";
+import {ILoginData, ILoginResponseData, IResetValue, IforgotValue } from "../interfaces/IFormInterface";
 import Toaster from "../hooks/Toaster";
 
-const API_URL = "http://localhost:3000/"
+export const API_URL = "http://localhost:3000/"
 
 
 // Register
@@ -20,6 +20,8 @@ export const login = async (data: ILoginData) => {
         if(res.data.tokens[0].token){
             const userToken: string = res.data.tokens[0].token;
             Cookies.set("jwt", userToken , { expires: 3 });
+            const userDetails:string = JSON.stringify(res.data)
+            Cookies.set('userDetail',userDetails , { expires: 3 });
         }
         return res.data;
     })
@@ -32,6 +34,7 @@ export const login = async (data: ILoginData) => {
         }
     })
 };
+
 
 // Forgot Password
 
@@ -46,3 +49,4 @@ export const resetPassword = async (resetValue:IResetValue) => {
     return await axios
     .post(`${API_URL}reset-password`,resetValue)
 }
+

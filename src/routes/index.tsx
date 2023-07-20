@@ -6,13 +6,15 @@ import Private from './private'
 import Public from './public'
 import ForgotPassword from '../components/authentication/ForgotPassword'
 import ResetPassword from '../components/authentication/ResetPassword'
-
+import Error from '../pages/error'
+import Profile from '../pages/Profile'
 const index = () => {
   return (
     <div>
         <Routes>
             <Route path='/' element={<Private/>}>
               <Route path='/' element={<Home/>}/>
+              <Route path='/profile' element={<Profile/>}/>
             </Route>
 
             <Route path='/' element={<Public/>}>
@@ -21,6 +23,7 @@ const index = () => {
               <Route path='/email-send' element={<ForgotPassword/>}/>
               <Route path='/reset-password' element={<ResetPassword/>}/>
             </Route>
+            <Route path='*' element={<Error/>}/>
         </Routes>
     </div>
   )

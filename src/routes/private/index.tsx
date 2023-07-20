@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Outlet, useNavigate } from "react-router"
 import Cookies from "js-cookie"
+import Navbar from "../../components/header/Navbar"
 
 const Private:React.FC = () => {
     const navigate = useNavigate()
@@ -20,6 +21,7 @@ const Private:React.FC = () => {
         {checkedLogin 
         ?
         <div>
+            <Navbar/>
             <Outlet/> 
         </div>
         :
